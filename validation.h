@@ -1,3 +1,6 @@
+#ifgndef VALIDATION_H
+#define VALIDATION_H
+
 #include <iostream>
 #include <string>
 #include <cctype>
@@ -52,3 +55,4 @@ public:
         return salary >= 5000;
     }
 };
+#endif
