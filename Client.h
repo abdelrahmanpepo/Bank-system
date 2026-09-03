@@ -1,32 +1,27 @@
-#ifndef CLIENT_H
-#define CLIENT_H
-
+#pragma once
+#include <iostream>
 #include <string>
+#include <exception>
+#include "Person.h"
+#include "validation.h"
+
 using namespace std;
 
-class Client
-{
+class Client : public Person {
 private:
-    string name;
-    string accountNumber;
     double balance;
 
 public:
-    Client();
-    Client(string name, string accountNumber, double balance);
+    Client(int id, string name, string password, double balance);
 
-    void setName(string name);
-    string getName();
-
-    void setAccountNumber(string accountNumber);
-    string getAccountNumber();
-
+    double getBalance() const;
     void setBalance(double balance);
-    double getBalance();
+
+    void setName(string name) override;
+    void setPassword(string password) override;
+    void display() const override;
 
     void deposit(double amount);
     void withdraw(double amount);
-    void display();
+    void transferTo(Client &receiver, double amount);
 };
-
-#endif
