@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
 #include <exception>
-#include <cctype>
+
 #include "Person.h"
 #include "Employee.h"
+#include "Validation.h"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ double Employee::getSalary() const
 
 void Employee::setSalary(double salary)
 {
-    if (salary < 5000)
+    if (!Validation::isValidSalary(salary))
     {
         throw invalid_argument("Salary must be at least 5000.");
     }
@@ -32,17 +33,9 @@ void Employee::setSalary(double salary)
 
 void Employee::setName(string name)
 {
-    if (name.size() < 3 || name.size() > 20)
+    if (!Validation::isValidName(name))
     {
-        throw invalid_argument("Name must be between 3 and 20 characters.");
-    }
-
-    for (char c : name)
-    {
-        if (!isalpha(c))
-        {
-            throw invalid_argument("Name must contain alphabetic characters only.");
-        }
+        throw invalid_argument("Invalid name.");
     }
 
     this->name = name;
@@ -50,17 +43,9 @@ void Employee::setName(string name)
 
 void Employee::setPassword(string password)
 {
-    if (password.size() < 8 || password.size() > 20)
+    if (!Validation::isValidPassword(password))
     {
-        throw invalid_argument("Password must be between 8 and 20 characters.");
-    }
-
-    for (char c : password)
-    {
-        if (c == ' ')
-        {
-            throw invalid_argument("Password must not contain spaces.");
-        }
+        throw invalid_argument("Invalid password.");
     }
 
     this->password = password;
