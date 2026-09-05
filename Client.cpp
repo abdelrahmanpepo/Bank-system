@@ -3,6 +3,7 @@
 #include "Client.h"
 #include"Person.h"
 #include"Validation.h"
+#include<exception>
 using namespace std;
 
 //Constructor:
@@ -15,7 +16,7 @@ void Client::setName(string name) {
         this->name = name;
     }
     else {
-        cout << "Invalid Name\n";
+        throw invalid_argument("Invalid Name");
     }
 }
 void Client::setPassword(string password) {
@@ -23,7 +24,7 @@ void Client::setPassword(string password) {
         this->password = password;
     }
     else {
-        cout << "Invalid Password\n";
+        throw invalid_argument(" Invalid Password");
     }
 }
 void Client::setBalance(double balance) {
@@ -31,7 +32,7 @@ void Client::setBalance(double balance) {
         this->balance = balance;
     }
     else {
-        cout << "Invalid Balance\n";
+        throw invalid_argument(" Invalid Balance");
     }
 }
 
@@ -46,7 +47,7 @@ void Client::deposit(double amount) {
         balance += amount;
     }
     else {
-        cout << "Invalid Amount\n";
+        throw invalid_argument("Invalid Amount");
     }
 }
 
@@ -55,7 +56,7 @@ void Client::withdraw(double amount) {
         balance -= amount;
     }
     else {
-        cout << "Invalid Amount\n";
+        throw invalid_argument("Invalid Amount");
     }
 }
 void Client::transferTo(Client& receiver, double amount) {
