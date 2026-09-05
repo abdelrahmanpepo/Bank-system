@@ -60,4 +60,12 @@ void Client::withdraw(double amount) {
     }
 }
 void Client::transferTo(Client& receiver, double amount) {
+    if (amount > 0 && amount <= balance) {
+        balance -= amount;
+        receiver.balance += amount;
+    }
+    else {
+      throw invalid_argument ("Invalid Amount")
+    }
+}
    
