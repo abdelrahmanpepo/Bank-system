@@ -4,17 +4,11 @@
 #include <exception>
 #include <cctype>
 #include "Person.h"
+#include "Employee.h"
 using namespace std;
-class Admin : public Person {
-private:
-	double salary;
+class Admin : public Employee {
 public:
 	Admin(int id, string name, string password, double salary);
-	double getSalary() const;
-	void setSalary(double salary);
-	void setName(string name) override;
-	void setPassword(string password) override;
-	void display() const override;
 
 };
 
