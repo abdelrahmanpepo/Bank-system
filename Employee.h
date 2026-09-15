@@ -1,10 +1,8 @@
-#pragma once
-#include <iostream>
-#include <string>
-#include <exception>
-#include "Person.h"
+#ifndef EMPLOYEE_H
+#define EMPLOYEE_H
 
-using namespace std;
+#include "Person.h"
+#include "Validation.h"
 
 class Employee : public Person
 {
@@ -14,13 +12,15 @@ private:
 public:
     Employee(int id, string name, string password, double salary);
 
-    double getSalary() const;
-
+    void setName(string name);
+    void setPassword(string password);
     void setSalary(double salary);
 
-    void setName(string name) override;
+    string getName();
+    string getPassword();
+    double getSalary();
 
-    void setPassword(string password) override;
-
-    void display() const override;
+    void display();
 };
+
+#endif
