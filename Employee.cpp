@@ -54,3 +54,41 @@ void Employee::display()
     cout << "Password: " << password << endl;
     cout << "Salary: " << salary << endl;
 }
+
+void Employee::addClient(Client& client)
+{
+    clients.push_back(client);
+}
+
+Client* Employee::searchClient(int id)
+{
+    for (int i = 0; i < clients.size(); i++)
+    {
+        if (clients[i].getId() == id)
+        {
+            return &clients[i];
+        }
+    }
+
+    return nullptr;
+}
+
+void Employee::listClient()
+{
+    for (int i = 0; i < clients.size(); i++)
+    {
+        clients[i].display();
+    }
+}
+
+void Employee::editClient(int id, string name, string password, double salary)
+{
+    Client* client = searchClient(id);
+
+    if (client != nullptr)
+    {
+        client->setName(name);
+        client->setPassword(password);
+        client->setBalance(salary);
+    }
+}
