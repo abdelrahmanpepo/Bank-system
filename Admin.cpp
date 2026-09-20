@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include <exception>
-#include <cctype>
 #include "Admin.h"
 #include <vector>
 Admin::Admin(int id, string name, string password, double salary) :Employee(id, name, passeord, salary) {}
