@@ -17,5 +17,5 @@ public:
     virtual void removeAllEmployees() = 0;
     virtual void removeAllAdmins() = 0;
 
-    virtual ~DataSourceInterface();
+    virtual ~DataSourceInterface() {}
 };
