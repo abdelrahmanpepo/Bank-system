@@ -2,7 +2,7 @@
 #include <string>
 #include "Admin.h"
 #include <vector>
-Admin::Admin(int id, string name, string password, double salary) :Employee(id, name, passeord, salary) {}
+Admin::Admin(int id, string name, string password, double salary) :Employee(id, name, password, salary) {}
 void Admin::display() const{
     cout << "=== Admin Details ===" << endl;
     Employee::display();
