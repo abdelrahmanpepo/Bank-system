@@ -32,9 +32,9 @@ void FilesHelper::saveEmployee(string fileName, string lastIdFile, Employee e)
 
     if (file.is_open())
     {
-        file << e.getId() << ","
-            << e.getName() << ","
-            << e.getPassword() << ","
+        file << e.getId() << "&"
+            << e.getName() << "&"
+            << e.getPassword() << "&"
             << e.getSalary() << endl;
 
         file.close();
@@ -54,9 +54,9 @@ void FilesHelper::saveAdmin(Admin a)
 
     if (file.is_open())
     {
-        file << a.getId() << ","
-            << a.getName() << ","
-            << a.getPassword() << ","
+        file << a.getId() << "&"
+            << a.getName() << "&"
+            << a.getPassword() << "&"
             << a.getSalary() << endl;
 
         file.close();
