@@ -1,39 +1,33 @@
-#include "Validation.h"
+#pragma once
+#include <iostream>
+#include <string>
+#include <cctype>
 
-bool Validation::isValidName(string name)
-{
-    if (name.length() < 3 || name.length() > 20)
-        return false;
+using namespace std;
 
-    for (char c : name)
-    {
-        if (!isalpha(c))
-            return false;
+class Validation {
+public:
+    static bool validName(string name) {
+        if (name.length() < 3 || name.length() > 20) return false;
+        for (char c : name) {
+            if (!isalpha(c) && c != ' ') return false;
+        }
+        return true;
     }
 
-    return true;
-}
-
-bool Validation::isValidPassword(string password)
-{
-    if (password.length() < 8 || password.length() > 20)
-        return false;
-
-    for (char c : password)
-    {
-        if (c == ' ')
-            return false;
+    static bool validPassword(string password) {
+        if (password.length() < 8 || password.length() > 20) return false;
+        for (char c : password) {
+            if (c == ' ') return false;
+        }
+        return true;
     }
 
-    return true;
-}
+    static bool validBalance(double balance) {
+        return balance >= 1500;
+    }
 
-bool Validation::isValidBalance(double balance)
-{
-    return balance >= 1500;
-}
-
-bool Validation::isValidSalary(double salary)
-{
-    return salary >= 5000;
-}
+    static bool validSalary(double salary) {
+        return salary >= 5000;
+    }
+};
