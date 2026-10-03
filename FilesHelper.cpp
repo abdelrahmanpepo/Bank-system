@@ -13,13 +13,13 @@ public:
 
     static int getLast(string fileName)
     {
-        int id;
+        int id=0;
         fstream file(fileName);
         file >> id;
         file.close();
         return id;
     }
-
+return 0 ;
     static void saveClient(Client c)
     {
         int id = getLast("ClientsLastId.txt");
