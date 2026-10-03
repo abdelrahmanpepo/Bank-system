@@ -25,7 +25,7 @@ public:
         
         string data = to_string(c.getId()) + '&' + c.getName() + '&' + c.getPassword() + '&' + to_string(c.getBalance());
         
-        fstream file("Clients.txt", ios::app);
+        ofstream file("Clients.txt", ios::app);
         file << data << "\n";
         
         saveLast("ClientsLastId.txt", id);
@@ -38,7 +38,7 @@ public:
         id++;
         
         string data = to_string(e.getId()) + '&' + e.getName() + '&' + e.getPassword() + '&' + to_string(e.getSalary());
-        fstream file(fileName, ios::app);
+        ofstream file(fileName, ios::app);
         
         file << data << "\n";
         
