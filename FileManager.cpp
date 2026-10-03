@@ -1,26 +1,18 @@
 #include "FileManager.h"
 
-void FileManager::addClient(Client obj)
+void FileManager::addClient(Client client)
 {
-    FilesHelper::saveClient(obj);
+    FilesHelper::saveClient(client);
 }
 
-void FileManager::addEmployee(Employee obj)
+void FileManager::addEmployee(Employee employee)
 {
-    FilesHelper::saveEmployee(
-        "Employee.txt",
-        "LastEmployeeId.txt",
-        obj
-    );
+    FilesHelper::saveEmployee("employees.txt", "employeesLastId.txt", employee);
 }
 
-void FileManager::addAdmin(Admin obj)
+void FileManager::addAdmin(Admin admin)
 {
-    FilesHelper::saveEmployee(
-        "Admin.txt",
-        "LastAdminId.txt",
-        obj
-    );
+    FilesHelper::saveEmployee("admins.txt", "adminsLastId.txt", admin);
 }
 
 void FileManager::getAllClients()
@@ -40,24 +32,15 @@ void FileManager::getAllAdmins()
 
 void FileManager::removeAllClients()
 {
-    FilesHelper::clearFile(
-        "Clients.txt",
-        "LastClientId.txt"
-    );
+    FilesHelper::clearFile("clients.txt", "clientsLastId.txt");
 }
 
 void FileManager::removeAllEmployees()
 {
-    FilesHelper::clearFile(
-        "Employee.txt",
-        "LastEmployeeId.txt"
-    );
+    FilesHelper::clearFile("employees.txt", "employeesLastId.txt");
 }
 
 void FileManager::removeAllAdmins()
 {
-    FilesHelper::clearFile(
-        "Admin.txt",
-        "LastAdminId.txt"
-    );
+    FilesHelper::clearFile("admins.txt", "adminsLastId.txt");
 }
