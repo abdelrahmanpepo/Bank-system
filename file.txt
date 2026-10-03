@@ -1,0 +1,29 @@
+Client record format:  id & name & password & balance
+Split delimiter: '&'
+
+Index:   [0]=id   [1]=name   [2]=password   [3]=balance
+
+-------------------------------------------------
+Line 1:  201&OmarKhaled&Cli12345&5000
+  [0] 201
+  [1] OmarKhaled
+  [2] Cli12345
+  [3] 5000
+
+Line 2:  202&YasminTarek&Cli67890&12500
+  [0] 202
+  [1] YasminTarek
+  [2] Cli67890
+  [3] 12500
+
+Line 3:  203&HassanNabil&Cli24680&3000
+  [0] 203
+  [1] HassanNabil
+  [2] Cli24680
+  [3] 3000
+
+Line 4:  204&LailaFathy&Cli13579&8750
+  [0] 204
+  [1] LailaFathy
+  [2] Cli13579
+  [3] 8750
