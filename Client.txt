@@ -1,4 +1,0 @@
-201&OmarKhaled&Cli12345&5000
-202&YasminTarek&Cli67890&12500
-203&HassanNabil&Cli24680&3000
-204&LailaFathy&Cli13579&8750
