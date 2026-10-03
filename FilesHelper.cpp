@@ -1,64 +1,99 @@
-#include "FilesHelper.h"
+#pragma once
+#include "Parser.h"
 
-void FilesHelper::saveLast(string fileName, int id) {
-    fstream file(fileName, ios::out);
-    if (file.is_open()) {
-        file << id << endl;
+class FilesHelper
+{
+public:
+    static void saveLast(string fileName, int id)
+    {
+        fstream file(fileName);
+        file << id;
         file.close();
     }
-}
 
-int FilesHelper::getLast(string fileName) {
-    fstream file(fileName, ios::in);
-    int id = 0;
-    if (file.is_open()) {
+    static int getLast(string fileName)
+    {
+        int id;
+        fstream file(fileName);
         file >> id;
         file.close();
+        return id;
     }
-    return id;
-}
 
-void FilesHelper::saveClient(string fileName, string lastIdFile, Client c) {
-    fstream file(fileName, ios::app);
-    if (file.is_open()) {
-        file << c.getId() << "&"
-             << c.getName() << "&"
-             << c.getPassword() << "&"
-             << c.getBalance() << endl;
+    static void saveClient(Client c)
+    {
+        int id = getLast("ClientsLastId.txt");
+        id++;
+        
+        string data = to_string(c.getId()) + '&' + c.getName() + '&' + c.getPassword() + '&' + to_string(c.getBalance());
+        
+        fstream file("Clients.txt", ios::app);
+        file << data << "\n";
+        
+        saveLast("ClientsLastId.txt", id);
         file.close();
     }
-    int lastId = getLast(lastIdFile);
-    if (c.getId() > lastId) {
-        saveLast(lastIdFile, c.getId());
-    }
-}
 
-void FilesHelper::saveEmployee(string fileName, string lastIdFile, Employee e) {
-    fstream file(fileName, ios::app);
-    if (file.is_open()) {
-        file << e.getId() << "&"
-             << e.getName() << "&"
-             << e.getPassword() << "&"
-             << e.getSalary() << endl;
+    static void saveEmployee(string fileName, string lastIdFile, Employee& e)
+    {
+        int id = getLast(lastIdFile);
+        id++;
+        
+        string data = to_string(e.getId()) + '&' + e.getName() + '&' + e.getPassword() + '&' + to_string(e.getSalary());
+        fstream file(fileName, ios::app);
+        
+        file << data << "\n";
+        
+        saveLast(lastIdFile, id);
         file.close();
     }
-    int lastId = getLast(lastIdFile);
-    if (e.getId() > lastId) {
-        saveLast(lastIdFile, e.getId());
-    }
-}
 
-void FilesHelper::saveAdmin(string fileName, string lastIdFile, Admin a) {
-    fstream file(fileName, ios::app);
-    if (file.is_open()) {
-        file << a.getId() << "&"
-             << a.getName() << "&"
-             << a.getPassword() << "&"
-             << a.getSalary() << endl; 
+    static void ClientsToVector()
+    {
+        fstream file("Clients.txt");
+        string line;
+        
+        while (getline(file, line))
+        {
+            Client::setAllClients(Parser::parseToClient(line));
+        }
+        
         file.close();
     }
-    int lastId = getLast(lastIdFile);
-    if (a.getId() > lastId) {
-        saveLast(lastIdFile, a.getId());
+
+    static void EmployeesToVector()
+    {
+        fstream file("Employees.txt");
+        string line;
+        
+        while (getline(file, line))
+        {
+            Employee::setAllEmployees(Parser::parseToEmployee(line));
+        }
+        
+        file.close();
     }
-}
+
+    static void AdminToVector()
+    {
+        fstream file("Admins.txt");
+        string line;
+        
+        while (getline(file, line))
+        {
+            Admin::setAllAdmins(Parser::parseToAdmin(line));
+        }
+        
+        file.close();
+    }
+
+    static void clearFile(string fileName, string lastIdFile)
+    {
+        ofstream file1(fileName, ios::trunc);
+        ofstream file2(lastIdFile, ios::trunc);
+        
+        file2 << "0";
+        file2.close();
+        file1.close();
+    }
+};
