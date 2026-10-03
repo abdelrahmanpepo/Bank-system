@@ -15,7 +15,7 @@ private:
 
         int i = 0;
 
-        while (getline(ss, token, '-'))
+        while (getline(ss, token, '&'))
         {
             data[i] = token;
             i++;
