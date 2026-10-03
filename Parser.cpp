@@ -9,7 +9,7 @@ private:
 
     static vector<string> split(string line)
     {
-        vector<string> data(4);
+        vector<string> data;
         stringstream ss(line);
         string token;
 
@@ -17,8 +17,7 @@ private:
 
         while (getline(ss, token, '&'))
         {
-            data[i] = token;
-            i++;
+            data.push_back(token);
         }
 
         return data;
