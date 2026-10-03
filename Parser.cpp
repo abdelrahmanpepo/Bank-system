@@ -17,7 +17,7 @@ private:
 
         while (getline(ss, token, '&'))
         {
-            data.push_back(token);
+            data[i]=(token);
         }
 
         return data;
