@@ -6,14 +6,14 @@ class FilesHelper
 public:
     static void saveLast(string fileName, int id)
     {
-        fstream file(fileName);
+        ofstream file(fileName);
         file << id;
         file.close();
     }
 
     static int getLast(string fileName)
     {
-        fstream file(fileName);
+        ifstream file(fileName);
         file >> id;
         file.close();
         return id;
