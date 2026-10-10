@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void AdminManager::printAdminMenu() {
+void AdminManager::EmployeeAdminMenu() {
     cout << "\n===== Admin Management =====\n";
     cout << "1. Add Employee\n";
     cout << "2. Search Employee\n";
