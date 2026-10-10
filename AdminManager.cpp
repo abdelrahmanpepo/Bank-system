@@ -98,7 +98,7 @@ bool AdminManager::AdminOptions(Admin* admin) {
             cin >> salary;
 
             admin->editEmployee(id, name, password, salary);
-            FileManager::updateEmployees(); // حفظ التعديل في الملفات
+            FileManager::updateEmployees(); 
             cout << "Employee updated successfully!\n";
             break;
         }
