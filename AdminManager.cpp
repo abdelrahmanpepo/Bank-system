@@ -64,9 +64,20 @@ bool AdminManager::AdminOptions(Admin* admin) {
 
             cout << "Enter new name: ";
             cin >> name;
+            if (!Validation::validName(name)) {
+                throw invalid_argument( "Invalid name. Name must be 3-20 characters");
+                break;
+            }
+
 
             cout << "Enter new password: ";
             cin >> password;
+
+            if (!Validation::validPassword(password)) {
+               throw invalid_argument("Invalid password. Password must be 8-20 characters with no spaces");
+                break;
+            }
+
 
             cout << "Enter new salary: ";
             cin >> salary;
@@ -78,6 +89,18 @@ bool AdminManager::AdminOptions(Admin* admin) {
         case 3:
             admin->listEmployee();
             break;
+            
+        case 4:
+           admin->addEmployee(employee);
+           break;
+  
+       if (!Validation::validPassword(password)) {
+                throw invalid_argument("Invalid password. Password must be 8-20 characters with no spaces.");
+                break;
+       }
+          return employee(id, name, password, salary);
+            break;
+       }
 
         case 0:
             return false;
