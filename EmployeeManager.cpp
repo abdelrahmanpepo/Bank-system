@@ -13,11 +13,17 @@ void EmployeeManager::printEmployeeMenu() {
 
 void EmployeeManager::updatePassword(Employee& employee) {
     string newPass;
-    cout << "New password: ";
+    cout << "Enter new password: ";
     cin >> newPass;
+
+    if (!Validation::isValidPassword(newPass)) {
+        cout << "Invalid password! It must meet the required security standards.\n";
+        return;
+    }
+
     try {
         employee.setPassword(newPass);
-        cout << "Password updated\n";
+        cout << "Password updated successfully!\n";
     } catch (const exception& e) {
         cout << "Error: " << e.what() << endl;
     }
