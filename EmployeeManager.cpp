@@ -1,117 +1,143 @@
-#include "EmployeeManager.h"
-#include <exception>
-
-void EmployeeManager::printEmployeeMenu() {
-    cout << "1. Display my info\n"
-         << "2. Add new client\n"
-         << "3. Search for client\n"
-         << "4. List all clients\n"
-         << "5. Edit client\n"
-         << "6. Update password\n"
-         << "7. Logout\n";
-}
-
-void EmployeeManager::updatePassword(Employee& employee) {
-    string newPass;
-    cout << "Enter new password: ";
-    cin >> newPass;
-
-    if (!Validation::isValidPassword(newPass)) {
-        cout << "Invalid password! It must meet the required security standards.\n";
-        return;
+class EmployeeManager
+{
+public:
+    static void printEmployeeMenu()
+    {
+        cout << "========= Employee Menu =========" << endl;
+        cout << "1. Add New Client" << endl;
+        cout << "2. List All Clients" << endl;
+        cout << "3. Search For Client" << endl;
+        cout << "4. Edit Client" << endl;
+        cout << "5. Logout" << endl;
     }
-
-    try {
-        employee.setPassword(newPass);
-        cout << "Password updated successfully!\n";
-    } catch (const exception& e) {
-        cout << "Error: " << e.what() << endl;
+    static void newClient(Employee* employee)
+    {
+        int id;
+        string name, password;
+        double balance;
+        cout << "Enter Client ID: ";
+        cin >> id;
+        cout << "Enter Client Name: ";
+        cin >> name;
+        cout << "Enter Client Password: ";
+        cin >> password;
+        cout << "Enter Client Balance: ";
+        cin >> balance;
+        Client c(id, name, password, balance);
+        FileManager fm;
+        fm.addClient(c);
+        cout << "Client added successfully!" << endl;
     }
-}
-
-void EmployeeManager::addClient(vector<Client>& clients) {
-    string name, password;
-    double balance;
-
-    cout << "Name: ";
-    cin.ignore();
-    getline(cin, name);
-    cout << "Password: ";
-    cin >> password;
-    cout << "Balance: ";
-    cin >> balance;
-
-    if (!Validation::isValidName(name)) {
-        cout << "Invalid name\n";
-        return;
-    }
-    if (!Validation::isValidPassword(password)) {
-        cout << "Invalid password\n";
-        return;
-    }
-    if (balance < 0) {
-        cout << "Invalid balance\n";
-        return;
-    }
-
-    int id = clients.empty() ? 1 : clients.back().getId() + 1;
-    clients.push_back(Client(id, name, password, balance));
-    cout << "Client added with ID " << id << endl;
-}
-
-Client* EmployeeManager::searchClient(int id, vector<Client>& clients) {
-    for (Client& c : clients) {
-        if (c.getId() == id) {
-            return &c;
+    static void listAllClients(Employee* employee)
+    {
+        FileManager fm;
+        vector<Client> clients = fm.getAllClients();
+        for (int i = 0; i < clients.size(); i++)
+        {
+            clients[i].printinfo();
         }
     }
-    return nullptr;
-}
-
-void EmployeeManager::listClients(const vector<Client>& clients) {
-    if (clients.empty()) {
-        cout << "No clients\n";
-        return;
-    }
-    for (const Client& c : clients) {
-        c.display();
-        cout << "---------------\n";
-    }
-}
-
-void EmployeeManager::editClient(int id, vector<Client>& clients) {
-    Client* client = searchClient(id, clients);
-    if (client == nullptr) {
-        cout << "Client not found\n";
-        return;
-    }
-
-    string name, password;
-    double balance;
-
-    cout << "New name: ";
-    cin.ignore();
-    getline(cin, name);
-    cout << "New password: ";
-    cin >> password;
-    cout << "New balance: ";
-    cin >> balance;
-
-    try {
-        client->setName(name);
-        client->setPassword(password);
-        client->setBalance(balance);
-        cout << "Client updated\n";
-    } catch (const exception& e) {
-        cout << "Error: " << e.what() << endl;
-    }
-}
-
-Employee* EmployeeManager::login(int id, string password, vector<Employee>& employees) {
-    for (Employee& e : employees) {
-        if (e.getId() == id && e.getPassword() == password) {
-            return &e;
+    static void searchForClient(Employee* employee)
+    {
+        int id;
+        cout << "Enter Client ID: ";
+        cin >> id;
+        FileManager fm;
+        vector<Client> clients = fm.getAllClients();
+        bool found = false;
+        for (int i = 0; i < clients.size(); i++)
+        {
+            if (clients[i].getId() == id)
+            {
+                clients[i].printinfo();
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            cout << "Client not found!" << endl;
         }
     }
-    return nullptr;
-}
+    static void editClientInfo(Employee* employee)
+    {
+        int id;
+        cout << "Enter Client ID: ";
+        cin >> id;
+        FileManager fm;
+        vector<Client> clients = fm.getAllClients();
+        bool found = false;
+        for (int i = 0; i < clients.size(); i++)
+        {
+            if (clients[i].getId() == id)
+            {
+                string name, password;
+                double balance;
+                cout << "Enter New Name: ";
+                cin >> name;
+                cout << "Enter New Password: ";
+                cin >> password;
+                cout << "Enter New Balance: ";
+                cin >> balance;
+                clients[i].setName(name);
+                clients[i].setPassword(password);
+                clients[i].setBalance(balance);
+                fm.removeAllClients();
+                for (int j = 0; j < clients.size(); j++)
+                {
+                    fm.addClient(clients[j]);
+                }
+                cout << "Client updated successfully!" << endl;
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            cout << "Client not found!" << endl;
+        }
+    }
+    static Employee* login(int id, string password)
+    {
+        FileManager fm;
+        vector<Employee> employees = fm.getAllEmployees();
+        for (int i = 0; i < employees.size(); i++)
+        {
+            if (employees[i].getId() == id && employees[i].getPassword() == password)
+            {
+                Employee* employee = new Employee(employees[i]);
+                return employee;
+            }
+        }
+        return nullptr;
+    }
+    static bool employeeOptions(Employee* employee)
+    {
+        int choice;
+        do
+        {
+            printEmployeeMenu();
+            cout << "Enter Choice: ";
+            cin >> choice;
+            switch (choice)
+            {
+            case 1:
+                newClient(employee);
+                break;
+            case 2:
+                listAllClients(employee);
+                break;
+            case 3:
+                searchForClient(employee);
+                break;
+            case 4:
+                editClientInfo(employee);
+                break;
+            case 5:
+                cout << "Logging out..." << endl;
+                return false;
+            }
+        } while (choice != 5);
+        return true;
+    }
+};
