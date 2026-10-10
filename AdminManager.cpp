@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void AdminManager::EmployeeAdminMenu() {
+void AdminManager::EmployeeMenu() {
     cout << "\n===== Admin Management =====\n";
     cout << "1. Add Employee\n";
     cout << "2. Search Employee\n";
@@ -34,7 +34,7 @@ bool AdminManager::AdminOptions(Admin* admin) {
     int choice;
 
     while (true) {
-        printAdminMenu();
+        printEmployeeMenu();
         cin >> choice;
 
         switch (choice) {
